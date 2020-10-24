@@ -1,22 +1,23 @@
 {
-  "name": "evolvb",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/pzoltaszek/evolvb.git"
-  },
-  "author": "pzoltaszek",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/pzoltaszek/evolvb/issues"
-  },
-  "homepage": "https://github.com/pzoltaszek/evolvb#readme",
-  "dependencies": {
-    "concurrently": "^5.3.0"
-  }
+    "name": "evolvb",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "concurrently \"cd CORE_evolvb && node server.js\" \"cd GUI_evolvb && npm run dev\""
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/pzoltaszek/evolvb.git"
+    },
+    "author": "pzoltaszek",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/pzoltaszek/evolvb/issues"
+    },
+    "homepage": "https://github.com/pzoltaszek/evolvb#readme",
+    "dependencies": {
+        "concurrently": "^5.3.0"
+    }
 }
