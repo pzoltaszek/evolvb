@@ -1,10 +1,13 @@
 <script>
-	export let name;
+	import Image from './common/Image.svelte';
+	import LoginBlock from './login/LoginBlock.svelte';
+	export let title;
 </script>
 
 <main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
+	<Image/>
+	<h1>{title}</h1>
+	<LoginBlock/>
 </main>
 
 <style>
@@ -17,9 +20,10 @@
 
 	h1 {
 		color: #ff3e00;
-		text-transform: uppercase;
 		font-size: 4em;
-		font-weight: 100;
+		font-weight: bold;
+		font-family: RonduitCapitals;
+	
 	}
 
 	@media (min-width: 640px) {
