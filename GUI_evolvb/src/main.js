@@ -1,6 +1,6 @@
-import App from './App.svelte';
+import Start from './Start.svelte';
 
-const app = new App({
+const app = new Start({
     target: document.body,
     props: {
         title: 'e v o l v . b'

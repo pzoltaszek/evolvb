@@ -1,10 +1,15 @@
+<script>
+    export let type;
+    
+    let className = type + '-button';
+</script>
 
-<button class='login-button' on:click>
+<button class={className} on:click>
     <slot/>
 </button>
 
 <style>
-    .login-button {
+    .login-button, .register-button {
     background-color: rgba(0,0,0,0);
     color: white;
     border-top: none;
@@ -22,7 +27,14 @@
     outline: none;
     }
 
-    .login-button:active {
-    border-bottom: 2px solid green;
+    .register-button:focus, .register-button:hover {
+    color: black;
+    cursor: pointer;
+    border-bottom: 2px solid black;
+    outline: none;
+    }
+
+    .login-button:active, .register-button:active {
+    border-bottom: 2px solid #ff3e00;;
     }
 </style>
