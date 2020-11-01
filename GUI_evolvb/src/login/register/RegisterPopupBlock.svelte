@@ -12,6 +12,9 @@
 
     const create = () => {
         loginAlreadyExist = true;
+        newLogin = '';
+        newPass = '';
+        closePopup('close-register-popup');
     }
 </script>
 
