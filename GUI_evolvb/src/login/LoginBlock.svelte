@@ -2,22 +2,42 @@
     import LoginButton from './common/LoginButton.svelte';
     import CommonLoginInput from './common/CommonLoginInput.svelte';
     import RegisterPopupBlock from './register/RegisterPopupBlock.svelte';
+    import { isUserLogged } from '../store/mainStore.js';
+    import UserApi from '../api/UserApi.js';
 
     let login = '',
     pass = '',
-    modalOpen=false;
+    modalOpen = false;
 
-    const closeRegisterPopup = () =>{
+    const switchRegisterPopup = () =>{
         modalOpen = !modalOpen;
     }
+    const aa  = async () => {
+        let users = await UserApi.getAllUser();
+        users.forEach(element => {
+            console.log(element);
+        });
+        
+        }
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         console.log(login + ' : ' + pass);
+        let res = await UserApi.findUser({login: login, pass: pass});
+        if (res){
+            console.log(res);
+            //isUserLogged.set(true);
+        } else {
+            alert ('no user '+ login);
+        }
+        login = '';
+        pass = '';
+        // isUserLogged.update(value => !value);
     }
 
-    const handleRegister = () => {
-        console.log(login + ' : ' + pass);
+    const getall = () =>{
+        aa();
     }
+
 </script>
 
 <div>
@@ -29,7 +49,8 @@
     <br>
     <span>
         <LoginButton type={"login"} on:click={handleSubmit}>submit</LoginButton>
-        <LoginButton type={"login"} on:click={closeRegisterPopup}>register</LoginButton>
+        <LoginButton type={"login"} on:click={getall}>getAll</LoginButton>
+        <LoginButton type={"login"} on:click={switchRegisterPopup}>register</LoginButton>
     </span>
 </div>
-<RegisterPopupBlock open={modalOpen} on:close-register-popup={closeRegisterPopup}/>
+<RegisterPopupBlock open={modalOpen} on:close-register-popup={switchRegisterPopup}/>

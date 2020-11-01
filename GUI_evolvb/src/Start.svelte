@@ -1,11 +1,20 @@
 <script>
 	import Image from './common/Image.svelte';
 	import LoginBlock from './login/LoginBlock.svelte';
+	import LoadingMask from './common/LoadingMask.svelte';
+	import { isUserLogged } from './store/mainStore.js';
 	export let title;
+
+	let isLogged;
+	const unsubscribe = isUserLogged.subscribe(value => {
+		isLogged = value;
+	});
 </script>
 
 <main>
 	<Image/>
+	<LoadingMask active={isLogged}/>
+
 	<h1>{title}</h1>
 	<LoginBlock/>
 </main>
