@@ -2,27 +2,65 @@
     import {createEventDispatcher} from 'svelte';
     import CommonLoginInput from '../common/CommonLoginInput.svelte';
     import LoginButton from '../common/LoginButton.svelte';
+    import UserApi from '../../api/UserApi.js';
+    import { loggedUser } from '../../store/mainStore.js';
     export let open;
 
     const closePopup = createEventDispatcher();
 
     let newLogin = '',
     newPass = '',
-    loginAlreadyExist = false;
+    loginAlreadyExist = false,
+    cannotAddUser = false;
 
-    const create = () => {
-        loginAlreadyExist = true;
+    const create = async () => {
+        if (newLogin === '' || newPass === ''){
+            setCannotAddUser();
+            return;
+        }
+        let res = await UserApi.addNewUser({login: newLogin, pass: newPass});
+        if (res === 'DB_ERROR'){
+            setCannotAddUser();
+        } else if (res){
+            loggedUser.set(res);
+            clearAndClose();
+        } else {
+            setLoginAlreadyExist();
+        }
         newLogin = '';
-        newPass = '';
-        closePopup('close-register-popup');
-    }
+        newPass = '';      
+    };
+
+    const clearAndClose = () => {
+        loginAlreadyExist = false,
+        cannotAddUser = false;
+        newLogin = '';
+        newPass = ''; 
+        closePopup('close-register-popup');   
+    };
+
+    const setCannotAddUser = () => {
+        if (cannotAddUser){
+            return;
+        }
+        cannotAddUser = true;
+        setTimeout(()=> {cannotAddUser= false}, 3000);
+    };
+
+    const setLoginAlreadyExist = () => {
+        if (loginAlreadyExist){
+            return;
+        }
+        loginAlreadyExist = true;
+        setTimeout(()=> {loginAlreadyExist = false}, 3000);
+    };
 </script>
 
 {#if open}
 <div class="popup-background">
     <div class="popup-content">
         <div class="popup-title">
-            <span class="closing-square" on:click={() => closePopup('close-register-popup')}>&times;</span>
+            <span class="closing-square" on:click={clearAndClose}>&times;</span>
         </div>
         <div class="popup-input">
             <CommonLoginInput type={"register-login"} bind:value={newLogin}/>
@@ -32,6 +70,9 @@
             <LoginButton type={"register"} on:click={create}>create</LoginButton>
             {#if loginAlreadyExist}
                 <div class="popup-info">This login already exist</div>
+            {/if}
+            {#if cannotAddUser}
+                <div class="popup-info">Cannot add user</div>
             {/if}
         </div>
         
@@ -101,7 +142,7 @@
     color: #ff3e00;
     padding: 2em;
     font-family: Overpass, sans-serif;
-    animation: popup-info-dissapear 3.0s 1;
+    animation: popup-info-dissapear 4.0s 1;
     visibility: hidden;
 }
 
@@ -113,6 +154,8 @@
 @keyframes popup-info-dissapear {
     0% {visibility:visible; 
         opacity: 1.0};
+    50% {visibility:visible; 
+        opacity: 1.0};   
     100%{opacity: 0.0};
 }
 </style>

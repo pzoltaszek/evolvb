@@ -2,42 +2,46 @@
     import LoginButton from './common/LoginButton.svelte';
     import CommonLoginInput from './common/CommonLoginInput.svelte';
     import RegisterPopupBlock from './register/RegisterPopupBlock.svelte';
-    import { isUserLogged } from '../store/mainStore.js';
+    import { loggedUser, menuState } from '../store/mainStore.js';
     import UserApi from '../api/UserApi.js';
+    import Enum from '.././common/Enum.js';
 
     let login = '',
     pass = '',
-    modalOpen = false;
+    modalOpen = false,
+    wrongCredentials = false;
 
     const switchRegisterPopup = () =>{
         modalOpen = !modalOpen;
-    }
-    const aa  = async () => {
-        let users = await UserApi.getAllUser();
-        users.forEach(element => {
-            console.log(element);
-        });
-        
-        }
+    };
 
     const handleSubmit = async () => {
-        console.log(login + ' : ' + pass);
-        let res = await UserApi.findUser({login: login, pass: pass});
-        if (res){
-            console.log(res);
-            //isUserLogged.set(true);
-        } else {
-            alert ('no user '+ login);
+        if (login === '' || pass === ''){
+            setWrongCredentials();
+            return;
         }
+        let res = await UserApi.findUser({login: login, pass: pass});
+        if (res) {
+            loggedUser.set(login);
+            menuState.set(Enum.MENU_STATE.LOGGED);
+        } else {
+            setWrongCredentials();
+        }
+        clear();
+    };
+
+    const setWrongCredentials = () => {
+        if (wrongCredentials){
+            return;
+        }
+        wrongCredentials = true;
+        setTimeout(()=> {wrongCredentials = false}, 3000);
+    };
+
+    const clear = () => {
         login = '';
         pass = '';
-        // isUserLogged.update(value => !value);
-    }
-
-    const getall = () =>{
-        aa();
-    }
-
+    };
 </script>
 
 <div>
@@ -49,8 +53,28 @@
     <br>
     <span>
         <LoginButton type={"login"} on:click={handleSubmit}>submit</LoginButton>
-        <LoginButton type={"login"} on:click={getall}>getAll</LoginButton>
         <LoginButton type={"login"} on:click={switchRegisterPopup}>register</LoginButton>
     </span>
+    {#if wrongCredentials}
+        <div class="login-info">Wrong credentials</div>
+    {/if}
 </div>
 <RegisterPopupBlock open={modalOpen} on:close-register-popup={switchRegisterPopup}/>
+
+<style>
+    .login-info {
+    color: #ff3e00;
+    padding: 1em;
+    font-family: Overpass, sans-serif;
+    animation: login-info-dissapear 4.0s 1;
+    visibility: hidden;
+}
+
+@keyframes login-info-dissapear {
+    0% {visibility:visible; 
+        opacity: 1.0};
+    50% {visibility:visible; 
+        opacity: 1.0};   
+    100%{opacity: 0.0};
+}
+</style>
