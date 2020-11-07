@@ -1,29 +1,27 @@
 <script>
 	import Image from './common/Image.svelte';
-	import LoginBlock from './login/LoginBlock.svelte';
 	import LoadingMask from './common/LoadingMask.svelte';
-	import { isUserLogged } from './store/mainStore.js';
+	import Menu from './Menu.svelte';
+	import { isLoading } from './store/mainStore.js';
 	export let title;
 
-	let isLogged;
-	const unsubscribe = isUserLogged.subscribe(value => {
-		isLogged = value;
+	let loading;
+	const unsubscribeLoading = isLoading.subscribe(value => {
+		loading = value;
 	});
+
 </script>
 
-<main>
+<div class='main'>
 	<Image/>
-	<LoadingMask active={isLogged}/>
-
+	<LoadingMask active={loading}/>
 	<h1>{title}</h1>
-	<LoginBlock/>
-</main>
+	<Menu/>
+</div>
 
 <style>
-	main {
-		text-align: center;
+	.main {
 		padding: 1em;
-		max-width: 240px;
 		margin: 0 auto;
 	}
 
@@ -32,12 +30,6 @@
 		font-size: 4em;
 		font-weight: bold;
 		font-family: RonduitCapitals;
-	
-	}
-
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
+		text-align: center;
 	}
 </style>

@@ -59,12 +59,32 @@ router.post("/user/findUser", async(req, res) => {
     }
 });
 
-router.post("/user/addNewUser", (req, res) => {
+router.post("/user/findUserByLogin", async(req, res) => {
+    const { login } = req.body;
+    try {
+        if (login) {
+            let user = await db.collection("t_user").findOne({ login: login })
+            return res.json({ success: true, data: user });
+        } else {
+            return res.json({ success: true, data: null });
+        }
+    } catch (error) {
+        console.log(`${chalk.red('[APP-ERROR]')} Database error: cannot find user`);
+        return res.json({ success: false });
+    }
+});
+
+router.post("/user/addNewUser", async(req, res) => {
     const { login, pass } = req.body;
     try {
         if (login && pass) {
-            db.collection("t_user").insertOne({ login: login, pass: pass });
-            return res.json({ success: true, login: login });
+            let user = await db.collection("t_user").findOne({ login: login, pass: pass });
+            if (user) {
+                return res.json({ success: true, data: null });
+            } else {
+                db.collection("t_user").insertOne({ login: login, pass: pass });
+                return res.json({ success: true, login: login });
+            }
         } else {
             return res.json({ success: true, data: null });
         }
