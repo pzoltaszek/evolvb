@@ -3,7 +3,8 @@
     import CommonLoginInput from '../common/CommonLoginInput.svelte';
     import LoginButton from '../common/LoginButton.svelte';
     import UserApi from '../../api/UserApi.js';
-    import { loggedUser } from '../../store/mainStore.js';
+    import { loggedUser, menuState } from '../../store/mainStore.js';
+    import Enum from '../.././common/Enum.js';
     export let open;
 
     const closePopup = createEventDispatcher();
@@ -23,6 +24,7 @@
             setCannotAddUser();
         } else if (res){
             loggedUser.set(res);
+            menuState.set(Enum.MENU_STATE.LOGGED);
             clearAndClose();
         } else {
             setLoginAlreadyExist();

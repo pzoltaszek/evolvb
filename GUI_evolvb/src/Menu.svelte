@@ -1,7 +1,6 @@
 <script>
     import LoginBlock from './login/LoginBlock.svelte';
     import MenuBlock from './menu/MenuBlock.svelte';
-    import GameBlock from './game/GameBlock.svelte';
     import { menuState } from './store/mainStore.js';
     import Enum from './common/Enum.js';
     
@@ -20,10 +19,6 @@
     <div class='menu-block-container'>
         <MenuBlock/>
     </div>
-    {:else}
-    <div class='game-block-container'>
-        <GameBlock/>
-    </div>
     {/if}
 
 <style>
@@ -41,8 +36,4 @@
         margin-right: 5%;
         margin-top: 30%;
 	}
-
-    .game-block-container{
-        text-align: center;
-    }
 </style>
