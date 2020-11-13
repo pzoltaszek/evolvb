@@ -53,7 +53,7 @@ function router() {
         let db = getDb();
         try {
             if (login && pass) {
-                let user = await db.collection("t_user").findOne({ login: login, pass: pass });
+                let user = await db.collection("t_user").findOne({ login: login });
                 if (user) {
                     return res.json({ success: true, data: null });
                 } else {
@@ -68,9 +68,7 @@ function router() {
             return res.json({ success: false });
         }
     });
-
     return userRouter;
-}
-
+};
 
 module.exports = router;
