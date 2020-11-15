@@ -1,125 +1,117 @@
 
 <script>
     import { onMount } from 'svelte';
+    import Create from './common/Create';
     export let pauseGame;
 
-    onMount(() => {
-
+    onMount(async () => {
         frame = document.querySelector('.frame');
-        levels.obstacles.forEach(el=>{
-            let newEl = document.createElement('div');
-            newEl.className =`${el.type}`;
-            newEl.id = `${el.sub}`;
-            newEl.style.width = `${el.width * scale}px`;
-            newEl.style.height = `${el.height * scale}px`;
-            newEl.style.left = `${el.posX * scale}px`;
-            newEl.style.top = `${el.posY * scale}px`;
-            newEl.style.backgroundImage = `url(${el.url})`;
-            newEl.style.position = "absolute"
-            frame.appendChild(newEl);
-            obstacles.push({
-                type: el.type,
-                id: el.sub,
-                x0:el.posX * scale,
-                x1: el.posX * scale + el.width * scale,
-                y0: el.posY * scale,
-                y1: el.posY * scale + el.height * scale
-            })
-        });   
-        playerDom = document.createElement('div');
-        playerDom.className = 'player';
-        playerDom.style.width = `${9}px`;
-        playerDom.style.height = `${9}px`;
-        playerDom.style.left = `${1* scale}px`; //half of the width
-        playerDom.style.top = `${1* scale}px`;
-        playerDom.style.position = "absolute"
-        playerDom.style.backgroundColor = `${color}`;
-        frame.appendChild(playerDom); 
+        await Create.background(frame, obstaclesObj, levels.obstacles, actorClickHandler);
+        await Create.actor(frame, levels.actors, actorClickHandler);
+        playerDom = await Create.player(frame, playerObj, levels.player);
         start();
     });
     
 const start = () => {
     function frame() {
-        if (playerDom == null || gameStatus !== 'playing') {
+        if (gameStatus !== 'playing') {
             cancelAnimationFrame(frame);
-            console.log('======================wychodze');
+            //TODO add ending
             return;
         } else {
-            handleGameClick();
-            moveplayer();
+            updateFrame();
         }
         requestAnimationFrame(frame)
     }
     requestAnimationFrame(frame)  
-} 
+};
+
 const handleGameClick = (e) => {
-    if (e){
+    if (pauseGame) {
+        return;
+    }
+    if (e) {
         target = {
         x: e.x - 105, //frame positio top100 left 100 + border5
         y: e.y - 105, //offset doesnt work when click on wall
-        el: e.target.className
+        el: e.target.classList[0]
         }
     }
 };
 
-const moveplayer = () => {
-    if (target == null){
+const updateFrame = () => {
+    if (pauseGame || target == null || target.el !== 'frame'){
         return;
     }
-    if(pauseGame){
-                return;
-            }
-   
+    moveplayer();
+};
+
+const moveplayer = () => { 
     let left = Number(playerDom.style.left.slice(0, playerDom.style.left.indexOf('p')));
     let top = Number(playerDom.style.top.slice(0, playerDom.style.top.indexOf('p')));
-    if (Math.round(target.x) == Math.round(left) || Math.round(target.y) == Math.round(top)) {
-            target = null;
-            return;
-        }
-        let steps = Math.max(Math.abs(target.x - left), Math.abs(target.y - top));
-        let xStep = (target.x - left) / steps;
-        let yStep = (target.y - top) / steps;
-console.log( 'left: ' +left + ' ,top: ' + top + ' ,steps: '+steps + ' ,xtarget:'+ target.x+ ' ,ytarrget:'+target.y);
-        // let xBeyond = xStep > 0 ? left + 9 + xStep : left + xStep;
-        // let yBeyond = yStep > 0 ? top + 9 + yStep : top + yStep;
-        // let elemntBeyond = document.elementFromPoint(xBeyond, yBeyond);
-        // if (elemntBeyond.className == 'Wall') {
-            obstacles.forEach(el=> {
-                if(overlap(el, left, top)){
+    let centerX = left + playerConstans.centerX;
+    let centerY = top + playerConstans.centerY;
+    if (Math.round(target.x) == Math.round(centerX) || Math.round(target.y) == Math.round(centerY)) {
+        target = null;
+        return;
+    }
+      
+        let steps = Math.max(Math.abs(target.x - centerX), Math.abs(target.y - centerY));
+        let xStep = (target.x - centerX) / steps;
+        let yStep = (target.y - centerY) / steps;
+        let nextX = xStep > 0 ? left + 9 + xStep : left + xStep;
+        let nextY = yStep > 0 ? top + 9 + yStep : top + yStep;
+        let obstacleResult = obstaclesObj.some(el=> overlap(el, nextX, nextY));
+        if (obstacleResult) {
             target = {};
             return;
-            }
-        })
-           
-        let newLeft = left + xStep;
-        let newTop = top + yStep;
-        playerDom.style.left = `${newLeft* 1}px`; //1=speed
-        playerDom.style.top = `${newTop* 1}px`;
+        } else {
+            playerDom.style.left = `${(left + xStep)* 1}px`; //1=speed
+            playerDom.style.top = `${(top + yStep)* 1}px`;
+        }     
         //TEST
-
-        // let frame = document.querySelector('.frame');
         // frame.scrollLeft = left + xStep - 50
-    };
-
-    const overlap = (element, left, top) => {
-    return   element.x0 <= left &&
-            left < element.x1 &&
-            element.y0 <= top &&
-            top <element.y1;
-}
+};
 
 
-let width = window.screen.availWidth;
-let height = window.screen.availHeight;
-let color = 'hotpink';
+const overlap = (element, left, top) => {
+    return element.x0 <= left &&
+        left < element.x1 &&
+        element.y0 <= top &&
+        top <element.y1;
+};
+
+const actorClickHandler = (e) => {
+console.log('aaaa')
+};
+
+const resolutionWidth = window.screen.availWidth;
+const resolutionHeight = window.screen.availHeight;
 let target = null;
 let playerDom;
+let playerObj = {
+    width: 9,
+    height: 9,
+    centerX: 4.5,
+    centerY: 4.5 
+}
+let playerConstans = {
+    width: 9,
+    height: 9,
+    centerX: 4.5,
+    centerY: 4.5
+}
 let gameStatus = 'playing';
 const scale = 20;
 let frame;
-let obstacles=[];
+let obstaclesObj=[];
 
 const levels = {
+    number: 0,
+    player: {
+        posX:1,
+        posY:1,
+    },
         obstacles: [
             {
                 type: 'Wall',
@@ -160,7 +152,19 @@ const levels = {
                 width: 16,
                 height: 1,
                 url: '/wall2.jpg'
-            }]
+        }],
+        actors: [
+            {
+                type: 'Enemy',
+                sub: 'good',
+                posX:5,
+                posY:5,
+                //pos: new Vector(0, 0),
+                width: 1,
+                height: 1,
+                url: '/wall2.jpg'
+            }
+        ]
 }
 </script>
 
@@ -168,12 +172,9 @@ const levels = {
 <div
 on:click={handleGameClick}
 class='frame'
-style=" 
-color:{color};
-width:{0.7*width}px;
-height:{0.7*height}px;
-position:absolute;
-"></div>
+style="width:{0.7*resolutionWidth}px;
+height:{0.7*resolutionHeight}px;
+position:absolute;"></div>
 {/if}
 <style>
 .frame {
