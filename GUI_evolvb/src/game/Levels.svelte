@@ -185,7 +185,6 @@ const levels = {
                 actorId: 3,
                 posX:20,
                 posY:20,
-                //pos: new Vector(0, 0),
                 width: 1,
                 height: 1,
                 url: '/wall2.jpg'
@@ -193,7 +192,6 @@ const levels = {
         ]
 }
 </script>
-
 
 <div
 on:click={handleGameClick}
