@@ -1,5 +1,5 @@
 <script>
-    import LoginButton from '../../login/common/LoginButton.svelte';
+    import CommonButtonWhite from '../../common/elements/CommonButtonWhite.svelte';
     import CommonLoginInput from '../../login/common/CommonLoginInput.svelte';
     export let user;
     let newPass = '',
@@ -30,20 +30,19 @@
     };
 </script>
 
-
 <p>You can change your password here:</p>
-<CommonLoginInput type={"register-old pass"} bind:value={oldPass}/>
+<CommonLoginInput type={"login-old pass"} bind:value={oldPass}/>
 <br><br>
-<CommonLoginInput type={"register-new pass"} bind:value={newPass}/>
+<CommonLoginInput type={"login-new pass"} bind:value={newPass}/>
 <br><br>
-<LoginButton type={"register"} on:click={handlePassChange}>change pass</LoginButton>
+<CommonButtonWhite on:click={handlePassChange}>change pass</CommonButtonWhite>
 <br><br>
 {#if wrongCredentials}
 <div class="login-info">Wrong credentials</div>
 {/if}
 
 <style>
-     .login-info {
+    .login-info {
     color: #ff3e00;
     font-family: Overpass, sans-serif;
     animation: login-info-dissapear 4.0s 1;

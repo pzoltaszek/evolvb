@@ -1,7 +1,7 @@
 <script>
     import {createEventDispatcher} from 'svelte';
     import CommonLoginInput from '../common/CommonLoginInput.svelte';
-    import LoginButton from '../common/LoginButton.svelte';
+    import CommonButtonWhite from '../../common/elements/CommonButtonWhite.svelte';
     import UserApi from '../../api/UserApi.js';
     import { loggedUser, menuState } from '../../store/mainStore.js';
     import Enum from '../.././common/Enum.js';
@@ -65,11 +65,11 @@
             <span class="closing-square" on:click={clearAndClose}>&times;</span>
         </div>
         <div class="popup-input">
-            <CommonLoginInput type={"register-login"} bind:value={newLogin}/>
+            <CommonLoginInput type={"login-login"} bind:value={newLogin}/>
             <br><br>
-            <CommonLoginInput type={"register-pass"} bind:value={newPass}/>
+            <CommonLoginInput type={"login-pass"} bind:value={newPass}/>
             <br><br>
-            <LoginButton type={"register"} on:click={create}>create</LoginButton>
+            <CommonButtonWhite on:click={create}>create</CommonButtonWhite>
             {#if loginAlreadyExist}
                 <div class="popup-info">This login already exist</div>
             {/if}
@@ -93,13 +93,12 @@
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0,0,0,0.5);
-    animation: showPopup 0.8s 1;
+    background-color: rgba(0,0,0,0.2);
 }
 
 .popup-content {
     position: relative;
-    background-color: white;
+    background-color: rgba(0,0,0,0.6);
     margin: auto;
     width: 20%;
     height: 30%;
@@ -107,19 +106,20 @@
     display: flex;
     justify-content: center;
     padding: 20px;
+    animation: showPopup 0.8s 1;
+    backdrop-filter: blur(2px);
 }
 
 .popup-title {
     position: absolute;
     top: 0px;
-    background-color:  rgb(219, 218, 218);
+    background-color: rgba(0,0,0,0.5);
     width: 100%;
     height: 10%;
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    color: gray;
-   
+    color: gray; 
     font-weight: bold;
     border-bottom: 1px solid black;
 }
@@ -149,8 +149,8 @@
 }
 
 @keyframes showPopup {
-    0% {opacity: 0.0};
-    100%{opacity: 1.0};
+    0% {opacity: 0.0; height: 1%};
+    100%{opacity: 1.0; height: 30%};
 }
 
 @keyframes popup-info-dissapear {

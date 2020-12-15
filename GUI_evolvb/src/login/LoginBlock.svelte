@@ -1,5 +1,5 @@
 <script>
-    import LoginButton from './common/LoginButton.svelte';
+    import CommonButtonWhite from '../common/elements/CommonButtonWhite.svelte';
     import CommonLoginInput from './common/CommonLoginInput.svelte';
     import RegisterPopupBlock from './register/RegisterPopupBlock.svelte';
     import { loggedUser, menuState } from '../store/mainStore.js';
@@ -52,8 +52,8 @@
     <br>
     <br>
     <span>
-        <LoginButton type={"login"} on:click={handleSubmit}>submit</LoginButton>
-        <LoginButton type={"login"} on:click={switchRegisterPopup}>register</LoginButton>
+        <CommonButtonWhite on:click={handleSubmit}>submit</CommonButtonWhite>
+        <CommonButtonWhite on:click={switchRegisterPopup}>register</CommonButtonWhite>
     </span>
     {#if wrongCredentials}
         <div class="login-info">Wrong credentials</div>

@@ -1,27 +1,28 @@
-<button class='menu-button' on:click>
+<button on:click>
     <slot/>
 </button>
 
+
 <style>
-    .menu-button {
+    button {
     background-color: rgba(0,0,0,0);
-    color: white;
+    color: gray;
     border-top: none;
     border-left: none;
     border-right: none;
-    border-bottom: 1px solid gray;
+    border-bottom: 1px solid black;
     outline: none;
     color: gray;
     }
 
-    .menu-button:hover {
-    color: white;
+    button:hover {
+    color: black;
     cursor: pointer;
-    border-bottom: 2px solid white;
+    border-bottom: 2px solid black;
     outline: none;
     }
 
-    .menu-button:active {
+    button:active {
     border-bottom: 2px solid #ff3e00;;
     }
 </style>

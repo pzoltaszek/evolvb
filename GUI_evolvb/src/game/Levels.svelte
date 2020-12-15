@@ -4,7 +4,8 @@
     import Create from './common/Create';
     import ActorTooltip from './ActorTooltip.svelte';
     import TargetMark from './TargetMark.svelte'
-    export let pauseGame;
+    import { gameStatus } from '../store/gameStore.js';
+    import Enum from '.././common/Enum.js';
 
     onMount(async () => {
         frame = document.querySelector('.frame');
@@ -14,16 +15,22 @@
         setLevelConstans();
         start();
     }); 
+
+    let pauseGame = true;
+    const unsubscribe = gameStatus.subscribe(value => {
+        pauseGame = value === Enum.GAME_STATE.PLAY ? false: true;
+	});
     
 const setLevelConstans = () => {
     frame.startXPoint = frame.offsetLeft + frame.clientLeft; //frame position +frame border
     frame.startYPoint = frame.offsetTop + frame.clientTop;
     frame.style.backgroundImage = `url(${levels.background})`;
+    gameStatus.set(Enum.GAME_STATE.PLAY);
 }
 
 const start = () => {
     function frame() {
-        if (gameStatus !== 'playing') {
+        if (gameStatuss !== 'playing') {
             cancelAnimationFrame(frame);
             //TODO add ending
             return;
@@ -145,7 +152,7 @@ let playerObj = {
     centerX: 10,
     centerY: 10 
 }
-let gameStatus = 'playing';
+let gameStatuss = 'playing';
 let frame;
 let obstaclesObj=[];
 let actorsObj=[];
