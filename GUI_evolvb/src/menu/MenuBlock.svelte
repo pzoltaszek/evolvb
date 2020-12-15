@@ -1,5 +1,5 @@
 <script>
-    import CommonMenuButton from './common/CommonMenuButton.svelte';
+    import CommonButtonWhite from '../common/elements/CommonButtonWhite.svelte';
     import SettingsPopupBlock from './settings/SettingsPopupBlock.svelte';
     import { loggedUser, menuState } from '../store/mainStore.js';
     import Enum from '../common/Enum';
@@ -24,13 +24,21 @@
     
 </script>
 
-    <CommonMenuButton on:click={handleStart}>Start</CommonMenuButton>
+    <CommonButtonWhite on:click={handleStart}>Start</CommonButtonWhite>
     <br><br>
-    <CommonMenuButton on:click={handleLoad}>Load</CommonMenuButton>
+    <CommonButtonWhite on:click={handleLoad}>Load</CommonButtonWhite>
     <br><br>
-    <CommonMenuButton on:click={switchSettingsPopup}>Settings</CommonMenuButton>
+    <CommonButtonWhite on:click={switchSettingsPopup}>Settings</CommonButtonWhite>
     <br><br>
-    <CommonMenuButton on:click={handleExit}>Exit</CommonMenuButton>
+    <CommonButtonWhite on:click={handleExit}>Exit</CommonButtonWhite>
     {#if modalOpen}
+    <div class='settings-popup'>
     <SettingsPopupBlock on:close-settings-popup={switchSettingsPopup}/>
+    </div>
     {/if}
+
+    <style>
+        .settings-popup {
+            text-align: left;
+        }
+    </style>

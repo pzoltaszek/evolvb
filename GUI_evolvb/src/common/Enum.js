@@ -3,6 +3,10 @@ const Enum = {
         NOT_LOGGED: 'NOT_LOGGED',
         LOGGED: 'LOGGED',
         GAME: 'GAME'
+    }),
+    GAME_STATE: Object.freeze({
+        PAUSE: 'PAUSE',
+        PLAY: 'PLAY'
     })
 }
 

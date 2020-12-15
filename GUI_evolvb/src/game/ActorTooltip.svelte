@@ -28,8 +28,9 @@ position:relative;">
 
 <style>
 .tool{
-    background-color: rgba(62, 85, 107, 0.8);
-    border-radius: 20%;
+    background-color: rgba(0,0,0,0.4);
+    border-radius: 10%;
+    backdrop-filter: blur(2px);
 }
 
 .tooltip-option{
@@ -40,9 +41,13 @@ position:relative;">
     color: white;
     cursor: pointer;
     font-weight: bold;
-    background-color: rgb(62, 85, 107);
+    background-color: rgba(0,0,0,0.4);
     text-decoration: underline;
     border-radius: 20%;
+}
+
+.tooltip-option:active {
+    text-decoration-color: #ff3e00;
 }
     
 </style>

@@ -36,14 +36,14 @@
 {#if user}
 <div class="popup-background">
     <div class="popup-content">
-        <div class="tabs-menu">
-            <span class="tab-link active" on:click={switchTab} id="1">Tab1</span>
+        <div class="title">
+            <div class ="tabs-title">
+            <span class="tab-link active" on:click={switchTab} id="1">User data</span>
             <span class="tab-link" on:click={switchTab} id="2">Tab2</span>
-            <div class="popup-close">
-                <span class="closing-square" on:click={clearAndClose}>&times;</span>
             </div>
+            <div class="closing-square"  on:click={clearAndClose}>&times;</div>
         </div>
-        <div class="tab-content {activeTab}">
+        <div class="tabs-content {activeTab}">
             {#if activeTab === "1"}
             <UserSettingsTab {user}/>
             {:else}
@@ -64,38 +64,41 @@
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0,0,0,0.5);
-    animation: showPopup 0.8s 1;
+    background-color: rgba(0,0,0,0.2);
 }
 
 .popup-content {
+    color: gray;
     position: relative;
-    background-color: white;
+    background-color: rgba(0,0,0,0.6);
     margin: auto;
-    width: 20%;
-    height: 30%;
-    overflow: auto;
-    display: flex;
-    justify-content: center;
-    padding: 20px;
+    width: 25%;
+    height: 35%;
+    overflow: none;
+    animation: showPopup 0.8s 1;
+    backdrop-filter: blur(2px);
 }
 
-.tabs-menu {
+.title {
     position: absolute;
     top: 0px;
-    background-color:  rgb(219, 218, 218);
+    background-color: rgba(0,0,0,0.5);
     width: 100%;
     height: 10%;
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    color: black;
+    color: gray; 
     border-bottom: 1px solid black;
+}
+
+.tabs-title {
+    width: 100%;
 }
 
 .tab-link {
     font-size: 1.1em;
-    color:black;
+    color:gray;
     margin-left: 0.5em;
     padding-left: 0.5em;
     padding-right: 0.5em;
@@ -112,13 +115,6 @@
     text-decoration: underline;
 }
 
-.popup-close {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;   
-}
-
 .closing-square {
     color: gray;
     font-weight: bold;
@@ -133,13 +129,13 @@
     cursor: pointer;
 }
 
-.tab-content {
+.tabs-content {
     padding: 30px;
 }
 
 @keyframes showPopup {
-    0% {opacity: 0.0};
-    100%{opacity: 1.0};
+    0% {opacity: 0.0; height: 1%};
+    100%{opacity: 1.0; height: 30%};
 }
 
 </style>
