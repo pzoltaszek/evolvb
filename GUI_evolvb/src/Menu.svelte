@@ -18,7 +18,6 @@
 
 <style>
 	.login-block-container {
-		/* text-align: center; */
 		padding: 1em;
 		max-width: 20em;
 		margin: 0 auto;
