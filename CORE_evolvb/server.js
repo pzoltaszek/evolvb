@@ -6,6 +6,7 @@ const cors = require('cors');
 require('dotenv').config({ path: `${__dirname}/config/dev.env` });
 const initDb = require("./dataBase/db").initDb;
 const userRouter = require("./routes/UserRoute")();
+const weRouter = require("./routes/WeRoute")();
 const app = express();
 
 app.use(cors());
@@ -19,3 +20,4 @@ initDb(() => {
     });
 });
 app.use("/user", userRouter);
+app.use("/we",weRouter);
