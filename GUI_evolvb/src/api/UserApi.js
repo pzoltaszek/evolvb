@@ -3,7 +3,7 @@ import { isLoading } from '../store/mainStore.js';
 const UserApi = {
     getAllUser: async() => {
         isLoading.set(true);
-        let res = await fetch('http://localhost:3000/user/getAllUser');
+        let res = await fetch('http://localhost:3001/user/getAllUser');
         let data = await res.json();
         isLoading.set(false);
         if (data.success !== true) {
@@ -15,7 +15,7 @@ const UserApi = {
 
     findUser: async(userData) => {
         isLoading.set(true);
-        let res = await fetch('http://localhost:3000/user/findUser', {
+        let res = await fetch('http://localhost:3001/user/findUser', {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json' //'application/x-www-form-urlencoded'
@@ -33,7 +33,7 @@ const UserApi = {
 
     findUserByLogin: async(userData) => {
         isLoading.set(true);
-        let res = await fetch('http://localhost:3000/user/findUserByLogin', {
+        let res = await fetch('http://localhost:3001/user/findUserByLogin', {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json' //'application/x-www-form-urlencoded'
@@ -51,7 +51,7 @@ const UserApi = {
 
     addNewUser: async(userData) => {
         isLoading.set(true);
-        let res = await fetch('http://localhost:3000/user/addNewUser', {
+        let res = await fetch('http://localhost:3001/user/addNewUser', {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json' //'application/x-www-form-urlencoded'

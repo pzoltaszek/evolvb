@@ -9,7 +9,7 @@
 
 <input class={className}
     type="text" placeholder={placeholder}
-    autoComplete='off' bind:value 
+    autoComplete='off' bind:value
 />
 
 <style>  

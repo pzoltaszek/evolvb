@@ -5,10 +5,10 @@
 {#if active === true}
 <div class="loadingRectangleBody">
   <div class="LoadingRectangleDiv">
-    <div id="line_b" class="line_1"></div>
-    <div id="line_r" class="line_2"></div>
-    <div id="line_t" class="line_3"></div>
-    <div id="line_l" class="line_4"></div>
+    <div id="line_a" class="line_1"></div>
+    <div id="line_b" class="line_2"></div>
+    <div id="line_c" class="line_3"></div>
+    <div id="line_d" class="line_4"></div>
   </div>
 </div>
 {/if}
@@ -33,7 +33,6 @@
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    text-align: center;
     position: absolute;
     background-color: rgba(255, 255, 255, 0);
     left:calc(50% - 75px);
@@ -43,25 +42,29 @@
   .line_1, .line_2, .line_3, .line_4 {
     height: 0.4em;
     width: 0.4em;
-    background: white; 
+    background: white;
+    box-shadow: 
+        0 0 3px white,
+        0 0 6px white,
+        0 0 9px white;
   }
 
-  #line_b {
+  #line_a {
     animation: line_animation 2s infinite;
     animation-delay: 0s;
   }
      
-  #line_r {
+  #line_b {
     animation: line_animation 2s infinite;
     animation-delay: 0.5s;
   }
 
-  #line_t {
+  #line_c {
     animation: line_animation 2s infinite;
     animation-delay: 1s;
   }
     
-  #line_l {
+  #line_d {
     animation: line_animation 2s infinite;
     animation-delay: 1.5s;
   }

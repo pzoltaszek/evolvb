@@ -1,4 +1,4 @@
-const scale = 20;
+const scale = 30;
 let color = 'hotpink';
 const Create = {
     elemnts: async(frame, elementObject, levelObstacles) => {

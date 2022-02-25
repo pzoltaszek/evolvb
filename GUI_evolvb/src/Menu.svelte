@@ -3,19 +3,14 @@
     import MenuBlock from './menu/MenuBlock.svelte';
     import { menuState } from './store/mainStore.js';
     import Enum from './common/Enum.js';
-    
-    let state = null;
-    const unsubscribe = menuState.subscribe(value => {
-		state = value;
-	});
 </script>
 
 
-   {#if state === Enum.MENU_STATE.NOT_LOGGED}
+    {#if $menuState === Enum.MENU_STATE.NOT_LOGGED}
     <div class='login-block-container'>
         <LoginBlock/>
     </div>
-    {:else if state === Enum.MENU_STATE.LOGGED}
+    {:else if  $menuState === Enum.MENU_STATE.LOGGED}
     <div class='menu-block-container'>
         <MenuBlock/>
     </div>
@@ -23,9 +18,9 @@
 
 <style>
 	.login-block-container {
-		text-align: center;
+		/* text-align: center; */
 		padding: 1em;
-		max-width: 240px;
+		max-width: 20em;
 		margin: 0 auto;
     }
     

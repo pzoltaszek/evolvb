@@ -52,7 +52,7 @@ const handleGameClick = (e) => {
         y: e.y + frame.scrollTop - frame.startYPoint,
         el: e.target.classList[0]
         }
-        if (target.el === 'frame') {     
+        if (target.el === 'frame') {
             let targetMark = new TargetMark({target: frame, props: {target}, accessors: true});
             destroyTargetMarkDelay(targetMark);
         } else if (target.el === 'Enemy') {
@@ -204,6 +204,46 @@ const levels = {
             width: 75,
             height: 1,
             url: '/wall2.jpg'
+        },
+        {
+            type: 'Wall',
+            sub: 'a',
+            posX:10,
+            posY:10,
+            // pos: new Vector(0, 25), //x = left, y = top
+            width: 10,
+            height: 1,
+            url: '/wall2.jpg'
+        },
+        {
+            type: 'Wall',
+            sub: 'b',
+            posX:10,
+            posY:10,
+            //pos: new Vector(0, 0),
+            width: 1,
+            height: 10,
+            url: '/wall2.jpg'
+        },
+        {
+            type: 'Wall',
+            sub: 'c',
+            posX:10,
+            posY:20,
+            //pos: new Vector(0, 0),
+            width: 10,
+            height: 1,
+            url: '/wall2.jpg'
+        },
+        {
+            type: 'Wall',
+            sub: 'd',
+            posX:20,
+            posY:10,
+            //  pos: new Vector(25, 0),
+            width: 1,
+            height: 11,
+            url: '/wall2.jpg'
         }],
         actors: [
             {
@@ -232,8 +272,8 @@ const levels = {
                 type: 'Enemy',
                 sub: 'good',
                 actorId: 3,
-                posX:20,
-                posY:20,
+                posX:22,
+                posY:22,
                 width: 1,
                 height: 1,
                 url: '/wall2.jpg'
