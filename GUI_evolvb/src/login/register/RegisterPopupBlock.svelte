@@ -89,16 +89,16 @@
     padding-top: 100px;
     left: 0;
     top: 0;
-    border: 1px solid black;
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0,0,0,0.2);
+    background-color: rgba(34, 33, 33, 0.2);
 }
 
 .popup-content {
     position: relative;
-    background-color: rgba(0,0,0,0.6);
+    background-color: rgba(0,0,0,0.7);
+    /* border: 1px solid gray; */
     margin: auto;
     width: 20%;
     height: 30%;
@@ -121,7 +121,7 @@
     justify-content: flex-end;
     color: gray; 
     font-weight: bold;
-    border-bottom: 1px solid black;
+    /* border-bottom: 1px solid black; */
 }
 
 .closing-square {

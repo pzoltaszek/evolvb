@@ -29,5 +29,7 @@
         margin: 0 auto;
         margin-right: 5%;
         margin-top: 30%;
+        display: flex;
+        flex-direction: column;
 	}
 </style>

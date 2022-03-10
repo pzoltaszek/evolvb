@@ -4,15 +4,15 @@
     import UserApi from '../../api/UserApi.js';
     import { loggedUser } from '../../store/mainStore.js';
 
-    let user;
+    let user = true;
     let isLogged = null,
     activeTab = "1";
     const unsubscribe = loggedUser.subscribe(value => {
 		isLogged = value;
 	});
     onMount( async() => {
-        user = await UserApi.findUserByLogin({login: isLogged});
-        !user ? clearAndClose() : null;
+       // user = await UserApi.findUserByLogin({login: isLogged});
+       // !user ? clearAndClose() : null;
     });
 
     const closeSettingsPopup = createEventDispatcher();
@@ -38,8 +38,8 @@
     <div class="popup-content">
         <div class="title">
             <div class ="tabs-title">
-            <span class="tab-link active" on:click={switchTab} id="1">User data</span>
-            <span class="tab-link" on:click={switchTab} id="2">Tab2</span>
+                <span class="tab-link active" on:click={switchTab} id="1">User data</span>
+                <span class="tab-link" on:click={switchTab} id="2">Tab2</span>
             </div>
             <div class="closing-square"  on:click={clearAndClose}>&times;</div>
         </div>
@@ -105,14 +105,25 @@
 }
 .tab-link.active {
     font-weight: bold;
-    color: #ff3e00;
+    color: white;
+    cursor: pointer;
+    border-bottom: 2px solid white;
+    outline: none;
+    text-shadow:
+			0 0 1px #fff,
+    		0 0 7px #fff
 }
 
 .tab-link:hover,
 .tab-link:focus {
-    color: #ff3e00;
+    font-weight: bold;
+    color: white;
     cursor: pointer;
-    text-decoration: underline;
+    border-bottom: 2px solid white;
+    outline: none;
+    text-shadow:
+			0 0 1px #fff,
+    		0 0 7px #fff
 }
 
 .closing-square {
@@ -124,9 +135,12 @@
 
 .closing-square:hover,
 .closing-square:focus {
-    color: #ff3e00;
+    color: white;
     text-decoration: none;
     cursor: pointer;
+    text-shadow:
+			0 0 1px #fff,
+    		0 0 7px #fff
 }
 
 .tabs-content {

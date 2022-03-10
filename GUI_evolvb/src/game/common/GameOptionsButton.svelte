@@ -11,5 +11,6 @@
     div {
         height: 2em;
         border: 1px solid black;
+        margin-bottom: 1em;
     }
 </style>

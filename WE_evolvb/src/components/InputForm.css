@@ -1,0 +1,22 @@
+.data-input {
+    font-size: 1em;
+    color:gainsboro;
+    align-items: center;
+    margin-top: 2em;
+}
+
+.data-input > form > label {
+    margin: 1em;
+}
+
+.data-input > form > input {
+    background-color: gainsboro;
+}
+
+.data-input > form >.submit {
+    margin: 1em;
+}
+
+.data-input > form > input:focus, .data-input > form > input:hover {
+    background-color: white;
+}

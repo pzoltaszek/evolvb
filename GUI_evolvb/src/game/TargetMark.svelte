@@ -9,7 +9,8 @@ style="width:{5}px;
 height:{5}px;
 top:{target.y - 2}px;
 left:{target.x - 2}px;
-position:absolute;"></div>
+position:absolute;
+border-radius:3px"></div>
 
 <style>
 .targetMark{

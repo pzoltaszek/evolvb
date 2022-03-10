@@ -1,0 +1,41 @@
+.baordTableContainer{
+    position: absolute;
+    width: 95%;
+    height: 80%;
+    margin-left: 3em;
+    margin-right: 3em;
+    overflow: auto;
+    user-select: none;
+}
+
+.baordTableContainer > div > div {
+    display: table-cell;
+    border: 1px solid #7d879b;
+    margin: 1px;
+}
+
+.baordTableContainer > div > div:hover, #col-header > .col-header, #row-header {
+    background-color: #464c57;
+}
+
+.header-empty {
+    visibility: hidden;
+}
+
+.wall {
+    background-image: url('../assets/wall2.jpg');
+    background-color: red;
+}
+
+.player {
+    background-image: url('../assets/player_1.jpg');
+    background-color: red;
+}
+
+.blue {
+    background-color: blue;
+}
+
+.blank {
+    visibility: hidden;
+}

@@ -28,8 +28,7 @@
 <div class='game-menu-container'>
     <div class='game-options-container'>
         <GameOptionsButton on:click={handleOpenOptionMenuPopup} text='Menu'></GameOptionsButton>
-        <br>
-        <GameOptionsButton on:click={pause} text='pause'></GameOptionsButton>
+        <GameOptionsButton on:click={pause} text='Pause'></GameOptionsButton>
     </div>
    
     <div class='game-block-container'>

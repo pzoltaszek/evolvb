@@ -6,7 +6,7 @@ const fsPromises = fs.promises;
 
 function router() {
     weRouter.post("/writeFile", async (req, res) => {
-        const { data } = req.body;
+        const data  = req.body;
         try {
             await fsPromises.writeFile('./myFile.json', JSON.stringify(data));
             console.log(`${chalk.blue('[APP-INFO]')} file saved`);
@@ -16,10 +16,11 @@ function router() {
     });
 
     //TODO add file path or name
-    weRouter.get("/readFile", (req, res) => {
+    weRouter.post("/readFile", async (req, res) => {
+        const dat = req.body;
         try {
             const data = await fsPromises.readFile('./myFile.json', 'utf-8');
-            return JSON.parse(data);
+            return res.json({ success: true, data: data });
         } catch (error) {
             console.log(`${chalk.red('[APP-ERROR]')} Read file error: cannot read file`);
         }

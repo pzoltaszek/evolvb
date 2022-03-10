@@ -1,5 +1,5 @@
 <script>
-    import CommonButtonWhite from "../common/elements/CommonButtonWhite.svelte";
+    import MenuButton from "./MenuButton.svelte";
     import SettingsPopupBlock from "./settings/SettingsPopupBlock.svelte";
     import { loggedUser, menuState } from "../store/mainStore.js";
     import Enum from "../common/Enum";
@@ -27,15 +27,11 @@
     };
 </script>
 
-<CommonButtonWhite on:click={handleStart}>Start</CommonButtonWhite>
-<br /><br />
-<CommonButtonWhite on:click={handleLoad}>Load</CommonButtonWhite>
-<br /><br />
-<CommonButtonWhite on:click={switchSettingsPopup}>Settings</CommonButtonWhite>
-<br /><br />
-<CommonButtonWhite on:click={handleWE}>World Editor</CommonButtonWhite>
-<br /><br />
-<CommonButtonWhite on:click={handleExit}>Exit</CommonButtonWhite>
+<MenuButton on:click={handleStart} text="Start"></MenuButton>
+<MenuButton on:click={handleLoad} text="Load"></MenuButton>
+<MenuButton on:click={switchSettingsPopup} text="Settings"></MenuButton>
+<MenuButton on:click={handleWE} text="World Editor"></MenuButton>
+<MenuButton on:click={handleExit} text="Exit"></MenuButton>
 {#if modalOpen}
     <div class="settings-popup">
         <SettingsPopupBlock on:close-settings-popup={switchSettingsPopup} />
