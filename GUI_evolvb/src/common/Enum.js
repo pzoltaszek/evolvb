@@ -6,7 +6,8 @@ const Enum = {
     }),
     GAME_STATE: Object.freeze({
         PAUSE: 'PAUSE',
-        PLAY: 'PLAY'
+        PLAY: 'PLAY',
+        STOP: 'STOP'
     })
 }
 
