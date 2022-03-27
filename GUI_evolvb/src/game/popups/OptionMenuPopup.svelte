@@ -26,7 +26,7 @@
             <span class="closing-square" on:click={close}>&times;</span>
         </div>
         <div class="popup-input">
-            <CommonButtonWhite on:click={close}>Back</CommonButtonWhite>
+            <CommonButtonWhite on:click={close}>Resume</CommonButtonWhite>
             <br><br>
             <CommonButtonWhite>Save game</CommonButtonWhite>
             <br><br>
